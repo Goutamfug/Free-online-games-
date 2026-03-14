@@ -9,65 +9,46 @@
 <style>
 
 body{
+margin:0;
 font-family:Arial;
 background:#0f172a;
 color:white;
-margin:0;
 }
 
 header{
 background:#020617;
 padding:15px;
 text-align:center;
-font-size:26px;
-}
-
-nav{
-background:#1e293b;
-padding:10px;
-text-align:center;
-}
-
-nav a{
-color:white;
-margin:10px;
-text-decoration:none;
-font-size:18px;
+font-size:24px;
 }
 
 .container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:1fr;
 gap:20px;
-padding:20px;
+padding:15px;
 }
 
 .game{
 background:#1e293b;
 padding:10px;
 border-radius:10px;
-text-align:center;
 }
 
 iframe{
 width:100%;
-height:300px;
+height:500px;
 border:none;
 border-radius:10px;
 }
 
-.ad{
-background:#334155;
-margin:20px;
-padding:20px;
-text-align:center;
-}
-
-footer{
-background:#020617;
-padding:15px;
-text-align:center;
-margin-top:20px;
+button{
+margin-top:10px;
+padding:10px;
+background:#6366f1;
+border:none;
+color:white;
+border-radius:6px;
 }
 
 </style>
@@ -80,62 +61,56 @@ margin-top:20px;
 🎮 Free Online Games
 </header>
 
-<nav>
-
-<a href="#">Home</a>
-<a href="#">Arcade</a>
-<a href="#">Puzzle</a>
-<a href="#">Racing</a>
-
-</nav>
-
-<div class="ad">
-Ad Space (Google AdSense)
-</div>
-
 <div class="container">
 
 <div class="game">
-<h3>Snake Game</h3>
-<iframe src="https://playsnake.org/"></iframe>
+
+<h2>Snake Game</h2>
+
+<iframe id="game1"
+src="https://www.crazygames.com/embed/snake"></iframe>
+
+<button onclick="fullscreen('game1')">Full Screen</button>
+
 </div>
 
 <div class="game">
-<h3>2048 Puzzle</h3>
-<iframe src="https://play2048.co/"></iframe>
+
+<h2>Tetris</h2>
+
+<iframe id="game2"
+src="https://www.crazygames.com/embed/tetris"></iframe>
+
+<button onclick="fullscreen('game2')">Full Screen</button>
+
 </div>
 
 <div class="game">
-<h3>Tetris</h3>
-<iframe src="https://tetris.com/play-tetris"></iframe>
-</div>
 
-<div class="game">
-<h3>Flappy Bird</h3>
-<iframe src="https://flappybird.io/"></iframe>
-</div>
+<h2>Car Racing</h2>
 
-<div class="game">
-<h3>Chess Game</h3>
-<iframe src="https://www.chess.com/play/computer"></iframe>
-</div>
+<iframe id="game3"
+src="https://www.crazygames.com/embed/racing-game"></iframe>
 
-<div class="game">
-<h3>Car Racing</h3>
-<iframe src="https://www.crazygames.com/embed/racing-game"></iframe>
+<button onclick="fullscreen('game3')">Full Screen</button>
+
 </div>
 
 </div>
 
-<div class="ad">
-Ad Space (Google AdSense)
-</div>
+<script>
 
-<footer>
+function fullscreen(id){
 
-© 2026 Free Online Games
+let elem = document.getElementById(id);
 
-</footer>
+if(elem.requestFullscreen){
+elem.requestFullscreen();
+}
+
+}
+
+</script>
 
 </body>
 </html>
