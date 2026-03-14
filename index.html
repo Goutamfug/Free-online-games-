@@ -24,31 +24,29 @@ font-size:24px;
 
 .container{
 display:grid;
-grid-template-columns:1fr;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:20px;
-padding:15px;
+padding:20px;
 }
 
 .game{
 background:#1e293b;
-padding:10px;
+padding:15px;
 border-radius:10px;
+text-align:center;
 }
 
-iframe{
+canvas{
+background:black;
 width:100%;
-height:500px;
-border:none;
-border-radius:10px;
+height:300px;
 }
 
-button{
-margin-top:10px;
-padding:10px;
-background:#6366f1;
-border:none;
-color:white;
-border-radius:6px;
+.ad{
+background:#334155;
+margin:20px;
+padding:20px;
+text-align:center;
 }
 
 </style>
@@ -61,54 +59,86 @@ border-radius:6px;
 🎮 Free Online Games
 </header>
 
+<div class="ad">
+Ad Space (Google AdSense)
+</div>
+
 <div class="container">
 
 <div class="game">
-
 <h2>Snake Game</h2>
-
-<iframe id="game1"
-src="https://www.crazygames.com/embed/snake"></iframe>
-
-<button onclick="fullscreen('game1')">Full Screen</button>
-
+<canvas id="snake"></canvas>
 </div>
 
 <div class="game">
-
-<h2>Tetris</h2>
-
-<iframe id="game2"
-src="https://www.crazygames.com/embed/tetris"></iframe>
-
-<button onclick="fullscreen('game2')">Full Screen</button>
-
-</div>
-
-<div class="game">
-
-<h2>Car Racing</h2>
-
-<iframe id="game3"
-src="https://www.crazygames.com/embed/racing-game"></iframe>
-
-<button onclick="fullscreen('game3')">Full Screen</button>
-
+<h2>Click Speed Game</h2>
+<button onclick="score++">Click Me!</button>
+<p id="score">Score: 0</p>
 </div>
 
 </div>
 
 <script>
 
-function fullscreen(id){
+/* Snake Game */
 
-let elem = document.getElementById(id);
+const canvas = document.getElementById("snake");
+const ctx = canvas.getContext("2d");
 
-if(elem.requestFullscreen){
-elem.requestFullscreen();
+let box = 20;
+let snake = [{x:9*box,y:9*box}];
+let food = {x:5*box,y:5*box};
+
+let d;
+
+document.addEventListener("keydown",direction);
+
+function direction(event){
+if(event.keyCode==37 && d!="RIGHT") d="LEFT";
+else if(event.keyCode==38 && d!="DOWN") d="UP";
+else if(event.keyCode==39 && d!="LEFT") d="RIGHT";
+else if(event.keyCode==40 && d!="UP") d="DOWN";
 }
 
+function draw(){
+
+ctx.fillStyle="black";
+ctx.fillRect(0,0,400,400);
+
+for(let i=0;i<snake.length;i++){
+ctx.fillStyle="lime";
+ctx.fillRect(snake[i].x,snake[i].y,box,box);
 }
+
+ctx.fillStyle="red";
+ctx.fillRect(food.x,food.y,box,box);
+
+let snakeX=snake[0].x;
+let snakeY=snake[0].y;
+
+if(d=="LEFT") snakeX-=box;
+if(d=="UP") snakeY-=box;
+if(d=="RIGHT") snakeX+=box;
+if(d=="DOWN") snakeY+=box;
+
+if(snakeX==food.x && snakeY==food.y){
+food={
+x:Math.floor(Math.random()*19+1)*box,
+y:Math.floor(Math.random()*19+1)*box
+};
+}else{
+snake.pop();
+}
+
+let newHead={x:snakeX,y:snakeY};
+
+snake.unshift(newHead);
+
+}
+
+setInterval(draw,100);
+
+let score=0;
 
 </script>
 
